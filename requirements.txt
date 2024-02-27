@@ -1,6 +1,6 @@
 streamlit 
 pandas
 plotly
-matplolib == 24.0
+matplolib == 22.0.3
 yfinance
 scikit-learn
