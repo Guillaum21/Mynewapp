@@ -27,7 +27,10 @@ def main():
 
     # Display chat history
     for role, message in st.session_state.history:
-        st.text_area("", value=message, height=25, key=message[:10])
+        if role == "You":
+            st.text_area("", value=message, height=25, key=message[:10])
+        else:
+            st.text_area("", value=message, height=25, key=message[:10], style={"text-align": "right"})
 
 # Run the main function
 if __name__ == '__main__':
