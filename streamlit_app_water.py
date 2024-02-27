@@ -40,7 +40,7 @@ st.title('Water Safety Prediction')
 user_input = {}
 for column in Xw.columns:
     if column != 'is_safe':
-        user_input[column] = st.slider(f'{column} Value', min_value=0, max_value=slider_ranges[column][1] + 0.5 * column_ranges[column], step=0.01, value=df_water[column].mean())
+        user_input[column] = st.slider(f'{column} Value', min_value=0.0, max_value=slider_ranges[column][1] + 0.5 * column_ranges[column], step=0.01, value=df_water[column].mean())
 
 # Create a user input DataFrame
 user_input_df = pd.DataFrame(user_input, index=[0])
