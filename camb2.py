@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 
 def determine_french_level(sentence):
     words = sentence.split()
@@ -34,20 +35,33 @@ st.set_page_config(page_title='Jeu de Complexité des Phrases Françaises', layo
 st.title('Jeu de Complexité des Phrases Françaises')
 
 st.write('''
-Écrivez la phrase la plus complexe possible en français.
-Plus la phrase est complexe, plus vous gagnez de points.
-Plus vous avez de points, plus la voiture a d'électricité.
-Plus la voiture a d'électricité, plus elle peut continuer à rouler.
-Quand vous n'avez plus d'électricité, la voiture s'arrête et le jeu vous donne votre score final.
+Écrivez la phrase la plus complexe possible en français dans les 60 secondes pour pousser la voiture aussi loin que possible. 
+L'objectif est d'atteindre 5000 mètres.
 ''')
 
-if 'total_points' not in st.session_state:
+if 'timer_started' not in st.session_state:
+    st.session_state['timer_started'] = False
     st.session_state['total_points'] = 0
     st.session_state['distance'] = 0
+    st.session_state['time_left'] = 60
+
+if st.button('Start') and not st.session_state['timer_started']:
+    st.session_state['timer_started'] = True
+    st.session_state['start_time'] = time.time()
+
+if st.session_state['timer_started']:
+    elapsed_time = time.time() - st.session_state['start_time']
+    st.session_state['time_left'] = max(60 - elapsed_time, 0)
+    if st.session_state['time_left'] <= 0:
+        st.session_state['timer_started'] = False
+        st.write(f'Final Score: {st.session_state["total_points"]} Points')
+        st.write(f'Total Distance: {st.session_state["distance"]} meters')
+        st.session_state['total_points'] = 0
+        st.session_state['distance'] = 0
 
 user_input = st.text_input('Écrivez une phrase ici', '')
 
-if st.button('Soumettre la phrase'):
+if st.session_state['timer_started'] and st.button('Soumettre la phrase'):
     if user_input:
         points, level = determine_french_level(user_input)
         st.session_state['total_points'] += points
@@ -59,8 +73,10 @@ if st.button('Soumettre la phrase'):
     else:
         st.error('Veuillez entrer une phrase avant de soumettre.')
 
-if st.button('Arrêter le jeu et afficher le score final'):
-    st.write(f'Final Score: {st.session_state["total_points"]} Points')
-    st.write(f'Total Distance: {st.session_state["distance"]} meters')
-    st.session_state['total_points'] = 0
-    st.session_state['distance'] = 0  # Reset the game
+progress_bar = st.progress(0)
+progress_bar.progress(min(st.session_state['distance'] / 5000, 1))
+
+if st.session_state['time_left'] > 0:
+    st.write(f'Time Left: {int(st.session_state["time_left"])} seconds')
+else:
+    st.write("Time is up! Submit your last sentence or restart the game.")
