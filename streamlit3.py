@@ -31,14 +31,14 @@ def determine_french_level(sentence):
     total_points = points + additional_points
     return total_points, level
 
-def boat_progress(distance, target=5000):
+def boat_progress(distance, target=2000):
     progress_percentage = min(distance / target * 100, 100)
     return f"""
     <div style="width: 100%; background: lightblue; position: relative; height: 50px; border-radius: 10px;">
         <div style="position: absolute; width: {progress_percentage}%; height: 100%; background: linear-gradient(to right, #0078D7, #83C5BE);">
-            <span style="position: absolute; right: 0; transform: translateX(50%);">⛵</span>
+            <span style="position: absolute; right: 0; transform: translateX(50%); font-size: 24px;">⛵</span> <!-- Increased size for the boat -->
         </div>
-        <span style="position: absolute; right: 0; transform: translateX(-100%); color: black;">🏁</span>
+        <span style="position: absolute; right: 0; transform: translateX(-100%); color: black; font-size: 24px;">🏁</span> <!-- Increased size for the flag -->
     </div>
     """
 
@@ -47,7 +47,7 @@ st.title('Jeu de Complexité des Phrases Françaises')
 
 st.write('''
 Write as complex sentences as possible in French within 60 seconds to push the boat as far as possible.
-The goal is to reach 5000 meters.
+The goal is to reach 2000 meters.
 ''')
 
 if 'timer_started' not in st.session_state:
