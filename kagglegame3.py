@@ -58,7 +58,7 @@ def journey_progress(distance, target=500):
     progress_percentage = min(distance / target * 100, 100)
     return f"""
     <div style="width: 100%; background: lightgray; position: relative; height: 60px; border-radius: 10px; overflow: hidden;">
-        <div style="position: absolute; width: {progress_percentage}%; height: 100%; background: linear-gradient(to right, #FF5733, #FFC300); transition: width 0.5s;">
+        <div style="position: absolute; width: {progress_percentage}%; height: 100%; background: linear-gradient(to right, #0000FF, #FFFFFF, #FF0000); transition: width 0.5s;">
             <img src="https://img.icons8.com/doodle/48/000000/car--v1.png" style="position: absolute; right: 0; transform: translateX(50%); height: 48px; width: 48px; animation: drive 1s infinite alternate;">
         </div>
         <img src="https://img.icons8.com/doodle/48/000000/eiffel-tower.png" style="position: absolute; right: 0; transform: translateX(-50%); height: 48px; width: 48px;">
@@ -88,11 +88,28 @@ if uploaded_file is not None:
     [data-testid="stAppViewContainer"] {{
     background: url(data:image/png;base64,{background_image_base64}) no-repeat center center fixed;
     background-size: cover;
+    background-color: #E0F7E0; /* Light green background */
+    }}
+    [data-testid="stAppViewContainer"] > .main {{
+    background-color: rgba(224, 247, 224, 0.8); /* Light green background with opacity */
     }}
     </style>
     """
 
     st.markdown(page_bg_img, unsafe_allow_html=True)
+else:
+    # CSS for Light Green Background
+    page_bg_color = """
+    <style>
+    [data-testid="stAppViewContainer"] {{
+    background-color: #E0F7E0; /* Light green background */
+    }}
+    [data-testid="stAppViewContainer"] > .main {{
+    background-color: rgba(224, 247, 224, 0.8); /* Light green background with opacity */
+    }}
+    </style>
+    """
+    st.markdown(page_bg_color, unsafe_allow_html=True)
 
 # Navigation
 st.sidebar.title("Navigation")
