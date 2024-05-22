@@ -61,7 +61,7 @@ if 'timer_started' not in st.session_state:
     st.session_state['timer_started'] = False
     st.session_state['total_points'] = 0
     st.session_state['distance'] = 0
-    st.session_state['time_left'] = 60
+    st.session_state['time_left'] = 1000
 
 clock_placeholder = st.empty()  # Placeholder for the clock
 
@@ -71,9 +71,9 @@ if st.button('Start') and not st.session_state['timer_started']:
 
 if st.session_state['timer_started']:
     start_time = st.session_state['start_time']
-    while time.time() - start_time < 60:
+    while time.time() - start_time < 1000:
         elapsed_time = time.time() - st.session_state['start_time']
-        st.session_state['time_left'] = max(60 - elapsed_time, 0)
+        st.session_state['time_left'] = max(1000 - elapsed_time, 0)
         clock_placeholder.text(f"Time Left: {int(st.session_state['time_left'])} seconds")
         time.sleep(1)
     st.session_state['timer_started'] = False
