@@ -88,7 +88,6 @@ if uploaded_file is not None:
     [data-testid="stAppViewContainer"] {{
     background: url(data:image/png;base64,{background_image_base64}) no-repeat center center fixed;
     background-size: cover;
-    background-color: #E0F7E0; /* Light green background */
     }}
     [data-testid="stAppViewContainer"] > .main {{
     background-color: rgba(224, 247, 224, 0.8); /* Light green background with opacity */
