@@ -6,6 +6,9 @@ from sklearn.linear_model import LogisticRegressionCV
 from sklearn.feature_extraction.text import TfidfVectorizer
 import time
 
+# Ensure set_page_config is the first Streamlit command
+st.set_page_config(page_title='Jeu de Complexité des Phrases Françaises', layout='wide')
+
 # Load the vectorizer and model from GitHub
 @st.cache_resource
 def load_vectorizer_model():
@@ -50,7 +53,6 @@ def boat_progress(distance, target=2000):
     </div>
     """
 
-st.set_page_config(page_title='Jeu de Complexité des Phrases Françaises', layout='wide')
 st.title('Jeu de Complexité des Phrases Françaises')
 
 st.write('''
