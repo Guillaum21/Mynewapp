@@ -100,7 +100,7 @@ if st.session_state['timer_started'] and st.button('Submit Sentence'):
     if user_input:
         points, level = determine_french_level(user_input)
         st.session_state['total_points'] += points
-        st.session_state['distance'] += points * 10  # Each point adds 10 meters to the boat's travel
+        st.session_state['distance'] += points  # Each point adds 1 meter to the boat's travel
         st.session_state['sentences'].append((user_input, points, level))
         st.write(f'French Level: {level}')
         st.write(f'Points for this sentence: {points}')
@@ -109,10 +109,13 @@ if st.session_state['timer_started'] and st.button('Submit Sentence'):
     else:
         st.error('Please enter a sentence before submitting.')
 
+# Live timer
+timer_placeholder = st.empty()
 if st.session_state['time_left'] > 0:
-    st.write(f'Time Left: {int(st.session_state["time_left"])} seconds')
+    with timer_placeholder:
+        st.write(f'Time Left: {int(st.session_state["time_left"])} seconds')
 else:
-    st.write("Time is up! Submit your last sentence or restart the game.")
+    timer_placeholder.write("Time is up! Submit your last sentence or restart the game.")
 
 # Encouragement messages
 if st.session_state['distance'] < 500:
@@ -127,3 +130,14 @@ if st.session_state['sentences']:
     st.write("### Sentence History")
     for sentence, points, level in st.session_state['sentences']:
         st.write(f"Sentence: {sentence} | Points: {points} | Level: {level}")
+
+# Continuously update the timer
+while st.session_state['timer_started']:
+    elapsed_time = time.time() - st.session_state['start_time']
+    st.session_state['time_left'] = max(60 - elapsed_time, 0)
+    if st.session_state['time_left'] <= 0:
+        st.session_state['timer_started'] = False
+        st.write("Time is up! Submit your last sentence or restart the game.")
+        break
+    timer_placeholder.write(f'Time Left: {int(st.session_state["time_left"])} seconds')
+    time.sleep(1)
