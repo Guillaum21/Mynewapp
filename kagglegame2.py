@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import time
 
 # Ensure set_page_config is the first Streamlit command
-st.set_page_config(page_title='Jeu de Complexité des Phrases Françaises', layout='wide')
+st.set_page_config(page_title='EPFL to Paris Journey', layout='wide')
 
 # Load the vectorizer and model from GitHub
 @st.cache_resource
@@ -53,28 +53,28 @@ def determine_french_level(sentence):
     points = level_points.get(level, 0)
     return points, level
 
-def boat_progress(distance, target=2000):
+def journey_progress(distance, target=500):
     progress_percentage = min(distance / target * 100, 100)
     return f"""
-    <div style="width: 100%; background: lightgray; position: relative; height: 50px; border-radius: 10px; overflow: hidden;">
-        <div style="position: absolute; width: {progress_percentage}%; height: 100%; background: linear-gradient(to right, #0078D7, #83C5BE, #5e60ce); transition: width 0.5s;">
-            <img src="https://img.icons8.com/emoji/48/000000/sailboat.png" style="position: absolute; right: 0; transform: translateX(50%); height: 48px; width: 48px; animation: sail 1s infinite alternate;">
+    <div style="width: 100%; background: lightgray; position: relative; height: 60px; border-radius: 10px; overflow: hidden;">
+        <div style="position: absolute; width: {progress_percentage}%; height: 100%; background: linear-gradient(to right, #FF5733, #FFC300); transition: width 0.5s;">
+            <img src="https://img.icons8.com/doodle/48/000000/car--v1.png" style="position: absolute; right: 0; transform: translateX(50%); height: 48px; width: 48px; animation: drive 1s infinite alternate;">
         </div>
-        <img src="https://img.icons8.com/emoji/48/000000/chequered-flag.png" style="position: absolute; right: 0; transform: translateX(-50%); height: 48px; width: 48px;">
+        <img src="https://img.icons8.com/doodle/48/000000/eiffel-tower.png" style="position: absolute; right: 0; transform: translateX(-50%); height: 48px; width: 48px;">
     </div>
     <style>
-        @keyframes sail {{
+        @keyframes drive {{
             0% {{ transform: translateX(50%) translateY(0); }}
             100% {{ transform: translateX(50%) translateY(-5px); }}
         }}
     </style>
     """
 
-st.title('Jeu de Complexité des Phrases Françaises')
+st.title('EPFL to Paris Journey')
 
 st.write('''
-Write as complex sentences as possible in French within 60 seconds to push the boat as far as possible.
-The goal is to reach 2000 meters.
+Welcome to the EPFL to Paris journey! As an international student at EPFL, your goal is to improve your French skills to make it to the Eiffel Tower in Paris. 
+Write as complex sentences as possible in French within 60 seconds to move your car closer to the Eiffel Tower. The total distance is 500 kilometers.
 ''')
 
 if 'timer_started' not in st.session_state:
@@ -95,7 +95,7 @@ if st.session_state['timer_started']:
     if st.session_state['time_left'] <= 0:
         st.session_state['timer_started'] = False
         st.write(f'Final Score: {st.session_state["total_points"]} Points')
-        st.write(f'Total Distance: {st.session_state["distance"]} meters')
+        st.write(f'Total Distance: {st.session_state["distance"]} kilometers')
         st.session_state['total_points'] = 0
         st.session_state['distance'] = 0  # Reset game
         st.session_state['sentences'] = []
@@ -108,13 +108,13 @@ if st.session_state['timer_started'] and st.button('Submit Sentence'):
     if user_input:
         points, level = determine_french_level(user_input)
         st.session_state['total_points'] += points
-        st.session_state['distance'] += points  # Each point adds 1 meter to the boat's travel
+        st.session_state['distance'] += points  # Each point adds 1 kilometer to the car's travel
         st.session_state['sentences'].append((user_input, points, level))
         st.session_state['first_submission'] = True
         st.write(f'French Level: {level}')
         st.write(f'Points for this sentence: {points}')
-        st.write(f'Total Distance: {st.session_state["distance"]} meters')
-        st.markdown(boat_progress(st.session_state['distance'], 2000), unsafe_allow_html=True)
+        st.write(f'Total Distance: {st.session_state["distance"]} kilometers')
+        st.markdown(journey_progress(st.session_state['distance'], 500), unsafe_allow_html=True)
     else:
         st.error('Please enter a sentence before submitting.')
 
@@ -128,12 +128,14 @@ else:
 
 # Encouragement messages
 if st.session_state['first_submission']:
-    if st.session_state['distance'] < 500:
+    if st.session_state['distance'] < 100:
         st.write("**Keep going! You can do it!**")
-    elif st.session_state['distance'] < 1500:
+    elif st.session_state['distance'] < 250:
         st.write("Great job! You're halfway there!")
+    elif st.session_state['distance'] < 400:
+        st.write("You're making great progress! Almost there!")
     else:
-        st.write("Almost there! Keep pushing!")
+        st.write("Just a little more! The Eiffel Tower is in sight!")
 
 # Display sentence history
 if st.session_state['sentences']:
