@@ -73,26 +73,26 @@ def journey_progress(distance, target=500):
 
 # Function to convert an uploaded image to base64
 def get_base64_image(uploaded_file):
-    img_data = uploaded_file.getvalue()
+    img_data = uploaded_file.read()
     return base64.b64encode(img_data).decode()
 
-# Upload background image
-uploaded_file = st.file_uploader("Upload a background image for the game", type=["png", "jpg"])
+# Path to the uploaded background image file
+background_image_path = "/mnt/data/file-ZTHeXSTs6D0AabwBRgsylbJq"
 
-if uploaded_file is not None:
-    background_image_base64 = get_base64_image(uploaded_file)
+with open(background_image_path, "rb") as image_file:
+    background_image_base64 = base64.b64encode(image_file.read()).decode()
 
-    # CSS for Background
-    page_bg_img = f"""
-    <style>
-    [data-testid="stAppViewContainer"] {{
-    background: url(data:image/png;base64,{background_image_base64}) no-repeat center center fixed;
-    background-size: cover;
-    }}
-    </style>
-    """
+# CSS for Background
+page_bg_img = f"""
+<style>
+[data-testid="stAppViewContainer"] {{
+background: url(data:image/png;base64,{background_image_base64}) no-repeat center center fixed;
+background-size: cover;
+}}
+</style>
+"""
 
-    st.markdown(page_bg_img, unsafe_allow_html=True)
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
 st.title('EPFL to Paris Journey')
 
