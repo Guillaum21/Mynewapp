@@ -7,6 +7,9 @@ from sklearn.linear_model import LogisticRegressionCV  # Ensure this import is h
 from sklearn.feature_extraction.text import TfidfVectorizer  # If you use it in other parts
 from datetime import datetime
 
+# Set the page configuration
+st.set_page_config(page_title='Jeu de Complexité des Phrases Françaises', layout='wide')
+
 # Load the vectorizer and model from GitHub
 @st.cache_resource
 def load_vectorizer_model():
@@ -48,7 +51,6 @@ def boat_progress(distance, target=2000):
     </div>
     """
 
-st.set_page_config(page_title='Jeu de Complexité des Phrases Françaises', layout='wide')
 st.title('Jeu de Complexité des Phrases Françaises')
 
 st.write('''
