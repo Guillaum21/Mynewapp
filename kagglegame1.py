@@ -29,8 +29,6 @@ vectorizer, model = load_vectorizer_model()
 def determine_french_level(sentence):
     sentence_transformed = vectorizer.transform([sentence])
     prediction = model.predict(sentence_transformed)[0]
-    
-    st.write(f"Debug: Prediction is {prediction}")
 
     # Map numerical predictions to CEFR levels
     prediction_to_level = {
@@ -99,13 +97,11 @@ sentence_level = st.empty()
 if st.session_state['timer_started'] and st.button('Submit Sentence'):
     if user_input:
         points, level = determine_french_level(user_input)
-        st.write(f"Debug: Points = {points}, Level = {level}")
         st.session_state['total_points'] += points
         st.session_state['distance'] += points * 10  # Each point adds 10 meters to the boat's travel
+        st.write(f'French Level: {level}')
         st.write(f'Points for this sentence: {points}')
-        sentence_level.text(f'French Level: {level}')
-        st.write(f'Total Points: {st.session_state["total_points"]}')
-        st.write(f'Distance: {st.session_state["distance"]} meters')
+        st.write(f'Total Distance: {st.session_state["distance"]} meters')
         st.markdown(boat_progress(st.session_state['distance'], 2000), unsafe_allow_html=True)
     else:
         st.error('Please enter a sentence before submitting.')
