@@ -77,7 +77,7 @@ def get_base64_image(image_path):
         return base64.b64encode(img_file.read()).decode()
 
 # Path to the background image
-background_image_path = "/mnt/data/Design sans titre.jpg"
+background_image_path = "file:///Users/Nouveau/Downloads/Design%20sans%20titre.jpg"
 
 background_image_base64 = get_base64_image(background_image_path)
 
