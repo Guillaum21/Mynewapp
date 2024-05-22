@@ -90,21 +90,21 @@ if uploaded_file is not None:
     background-size: cover;
     }}
     [data-testid="stAppViewContainer"] > .main {{
-    background-color: rgba(224, 247, 224, 0.8); /* Light green background with opacity */
+    background-color: rgba(169, 169, 169, 0.8); /* Grey background with opacity */
     }}
     </style>
     """
 
     st.markdown(page_bg_img, unsafe_allow_html=True)
 else:
-    # CSS for Light Green Background
+    # CSS for Grey Background
     page_bg_color = """
     <style>
     [data-testid="stAppViewContainer"] {{
-    background-color: #E0F7E0; /* Light green background */
+    background-color: #A9A9A9; /* Grey background */
     }}
     [data-testid="stAppViewContainer"] > .main {{
-    background-color: rgba(224, 247, 224, 0.8); /* Light green background with opacity */
+    background-color: rgba(169, 169, 169, 0.8); /* Grey background with opacity */
     }}
     </style>
     """
