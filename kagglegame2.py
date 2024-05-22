@@ -70,6 +70,21 @@ def journey_progress(distance, target=500):
     </style>
     """
 
+# Background Image
+background_image = "Create_a_background_image_for_a_game_that_represen.png"
+
+# CSS for Background
+page_bg_img = f"""
+<style>
+[data-testid="stAppViewContainer"] {{
+background: url(data:image/png;base64,{background_image}) no-repeat center center fixed;
+background-size: cover;
+}}
+</style>
+"""
+
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
 st.title('EPFL to Paris Journey')
 
 st.write('''
@@ -85,7 +100,7 @@ if 'timer_started' not in st.session_state:
     st.session_state['sentences'] = []
     st.session_state['first_submission'] = False
 
-if st.button('Start') and not st.session_state['timer_started']:
+if st.button('Start the game!') and not st.session_state['timer_started']:
     st.session_state['timer_started'] = True
     st.session_state['start_time'] = time.time()
 
@@ -101,7 +116,7 @@ if st.session_state['timer_started']:
         st.session_state['sentences'] = []
         st.session_state['first_submission'] = False
 
-user_input = st.text_input('Write a short sentence here', '')
+user_input = st.text_input('Write your best sentences', '')
 sentence_level = st.empty()
 
 if st.session_state['timer_started'] and st.button('Submit Sentence'):
