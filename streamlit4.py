@@ -1,54 +1,6 @@
 import streamlit as st
 import time
 
-# Predictions on the unlabelled data
-
-# Load the trained model
-model = CamembertForSequenceClassification.from_pretrained('./saved_models/CamemBERT_V1')
-tokenizer = CamembertTokenizer.from_pretrained('./saved_models/CamemBERT_V1')
-
-# Define the label names in the order of their corresponding indices (0 to 5)
-label_names = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
-
-# Create a pipeline for text classification
-nlp = pipeline("text-classification", model=model, tokenizer=tokenizer, return_all_scores=True)
-
-
-# Predict
-outputs = nlp("Je mange une pomme.")
-
-# Decode the predictions
-predictions = [{label_names[i]: score for i, score in enumerate(output)} for output in outputs]
-print(predictions)
-
-# Function to predict the difficulty of a single sentence
-def predict_difficulty(sentence):
-    results = nlp(sentence)
-    # Make the prediction for the sentence
-    predictions = [{label_names[i]: score for i, score in enumerate(result)} for result in results]
-    #Find the key with the highest score
-    best_prediction = max(predictions[0], key=lambda key: predictions[0][key]['score'])
-    return best_prediction
-
-
-# Apply the prediction function to each sentence in the 'sentence' column of unlabel DataFrame
-unlabel['difficulty'] = unlabel['sentence'].apply(predict_difficulty)
-
-# Merge the dataframes on the 'sentence' column
-merged_df = pd.merge(unlabel, max_present, on='sentence', suffixes=('_unlabel', '_max_present'))
-
-# Calculate the number of matching difficulties
-num_matches = (merged_df['difficulty_unlabel'] == merged_df['difficulty_max_present']).sum()
-
-# Calculate the total number of sentences
-total_sentences = len(merged_df)
-
-# Calculate the percentage of matching difficulties
-percentage_match = (num_matches / total_sentences) * 100
-
-print(f"Percentage of matching difficulties: {percentage_match:.2f}%")
-
----
 def determine_french_level(sentence):
     words = sentence.split()
     num_words = len(words)
