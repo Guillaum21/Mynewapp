@@ -32,6 +32,17 @@ def determine_french_level(sentence):
     
     st.write(f"Debug: Prediction is {prediction}")
 
+    # Map numerical predictions to CEFR levels
+    prediction_to_level = {
+        0: 'A1',
+        1: 'A2',
+        2: 'B1',
+        3: 'B2',
+        4: 'C1',
+        5: 'C2'
+    }
+
+    level = prediction_to_level.get(prediction, 'Unknown')
     level_points = {
         'A1': 5,
         'A2': 10,
@@ -41,8 +52,8 @@ def determine_french_level(sentence):
         'C2': 30
     }
     
-    points = level_points.get(prediction, 0)
-    return points, prediction
+    points = level_points.get(level, 0)
+    return points, level
 
 def boat_progress(distance, target=2000):
     progress_percentage = min(distance / target * 100, 100)
