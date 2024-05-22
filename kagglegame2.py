@@ -56,12 +56,18 @@ def determine_french_level(sentence):
 def boat_progress(distance, target=2000):
     progress_percentage = min(distance / target * 100, 100)
     return f"""
-    <div style="width: 100%; background: lightblue; position: relative; height: 50px; border-radius: 10px;">
-        <div style="position: absolute; width: {progress_percentage}%; height: 100%; background: linear-gradient(to right, #0078D7, #83C5BE);">
-            <span style="position: absolute; right: 0; transform: translateX(50%); font-size: 24px;">⛵</span> <!-- Increased size for the boat -->
+    <div style="width: 100%; background: lightgray; position: relative; height: 50px; border-radius: 10px; overflow: hidden;">
+        <div style="position: absolute; width: {progress_percentage}%; height: 100%; background: linear-gradient(to right, #0078D7, #83C5BE, #5e60ce); transition: width 0.5s;">
+            <img src="https://img.icons8.com/emoji/48/000000/sailboat.png" style="position: absolute; right: 0; transform: translateX(50%); height: 48px; width: 48px; animation: sail 1s infinite alternate;">
         </div>
-        <span style="position: absolute; right: 0; transform: translateX(-100%); color: black; font-size: 24px;">🏁</span> <!-- Increased size for the flag -->
+        <img src="https://img.icons8.com/emoji/48/000000/chequered-flag.png" style="position: absolute; right: 0; transform: translateX(-50%); height: 48px; width: 48px;">
     </div>
+    <style>
+        @keyframes sail {
+            0% { transform: translateX(50%) translateY(0); }
+            100% { transform: translateX(50%) translateY(-5px); }
+        }
+    </style>
     """
 
 st.title('Jeu de Complexité des Phrases Françaises')
@@ -77,6 +83,7 @@ if 'timer_started' not in st.session_state:
     st.session_state['distance'] = 0
     st.session_state['time_left'] = 60
     st.session_state['sentences'] = []
+    st.session_state['first_submission'] = False
 
 if st.button('Start') and not st.session_state['timer_started']:
     st.session_state['timer_started'] = True
@@ -92,6 +99,7 @@ if st.session_state['timer_started']:
         st.session_state['total_points'] = 0
         st.session_state['distance'] = 0  # Reset game
         st.session_state['sentences'] = []
+        st.session_state['first_submission'] = False
 
 user_input = st.text_input('Write a short sentence here', '')
 sentence_level = st.empty()
@@ -102,6 +110,7 @@ if st.session_state['timer_started'] and st.button('Submit Sentence'):
         st.session_state['total_points'] += points
         st.session_state['distance'] += points  # Each point adds 1 meter to the boat's travel
         st.session_state['sentences'].append((user_input, points, level))
+        st.session_state['first_submission'] = True
         st.write(f'French Level: {level}')
         st.write(f'Points for this sentence: {points}')
         st.write(f'Total Distance: {st.session_state["distance"]} meters')
@@ -118,12 +127,13 @@ else:
     timer_placeholder.write("Time is up! Submit your last sentence or restart the game.")
 
 # Encouragement messages
-if st.session_state['distance'] < 500:
-    st.write("Keep going! You can do it!")
-elif st.session_state['distance'] < 1500:
-    st.write("Great job! You're halfway there!")
-else:
-    st.write("Almost there! Keep pushing!")
+if st.session_state['first_submission']:
+    if st.session_state['distance'] < 500:
+        st.write("**Keep going! You can do it!**")
+    elif st.session_state['distance'] < 1500:
+        st.write("Great job! You're halfway there!")
+    else:
+        st.write("Almost there! Keep pushing!")
 
 # Display sentence history
 if st.session_state['sentences']:
