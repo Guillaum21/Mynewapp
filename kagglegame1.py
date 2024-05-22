@@ -29,6 +29,8 @@ vectorizer, model = load_vectorizer_model()
 def determine_french_level(sentence):
     sentence_transformed = vectorizer.transform([sentence])
     prediction = model.predict(sentence_transformed)[0]
+    
+    st.write(f"Debug: Prediction is {prediction}")
 
     level_points = {
         'A1': 5,
@@ -86,6 +88,7 @@ sentence_level = st.empty()
 if st.session_state['timer_started'] and st.button('Submit Sentence'):
     if user_input:
         points, level = determine_french_level(user_input)
+        st.write(f"Debug: Points = {points}, Level = {level}")
         st.session_state['total_points'] += points
         st.session_state['distance'] += points * 10  # Each point adds 10 meters to the boat's travel
         st.write(f'Points for this sentence: {points}')
