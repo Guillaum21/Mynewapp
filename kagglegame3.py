@@ -72,43 +72,29 @@ def journey_progress(distance, target=500):
     """
 
 # Function to convert an uploaded image to base64
-def get_base64_image(uploaded_file):
-    img_data = uploaded_file.getvalue()
-    return base64.b64encode(img_data).decode()
+def get_base64_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
 
-# Upload background image
-uploaded_file = st.file_uploader("Upload a background image for the game", type=["png", "jpg"])
+# Path to the background image
+background_image_path = "/mnt/data/Design sans titre.jpg"
 
-if uploaded_file is not None:
-    background_image_base64 = get_base64_image(uploaded_file)
+background_image_base64 = get_base64_image(background_image_path)
 
-    # CSS for Background
-    page_bg_img = f"""
-    <style>
-    [data-testid="stAppViewContainer"] {{
-    background: url(data:image/png;base64,{background_image_base64}) no-repeat center center fixed;
-    background-size: cover;
-    }}
-    [data-testid="stAppViewContainer"] > .main {{
-    background-color: rgba(169, 169, 169, 0.8); /* Grey background with opacity */
-    }}
-    </style>
-    """
+# CSS for Background
+page_bg_img = f"""
+<style>
+[data-testid="stAppViewContainer"] {{
+background: url(data:image/png;base64,{background_image_base64}) no-repeat center center fixed;
+background-size: cover;
+}}
+[data-testid="stAppViewContainer"] > .main {{
+background-color: rgba(255, 255, 255, 0.8); /* Light background with opacity */
+}}
+</style>
+"""
 
-    st.markdown(page_bg_img, unsafe_allow_html=True)
-else:
-    # CSS for Grey Background
-    page_bg_color = """
-    <style>
-    [data-testid="stAppViewContainer"] {{
-    background-color: #A9A9A9; /* Grey background */
-    }}
-    [data-testid="stAppViewContainer"] > .main {{
-    background-color: rgba(169, 169, 169, 0.8); /* Grey background with opacity */
-    }}
-    </style>
-    """
-    st.markdown(page_bg_color, unsafe_allow_html=True)
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Navigation
 st.sidebar.title("Navigation")
