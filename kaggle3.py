@@ -39,7 +39,7 @@ def determine_points_from_model(prediction):
     }
     return difficulty_to_points.get(prediction, 0), prediction
 
-def boat_progress(distance, target=200):
+def boat_progress(distance, target=2000):
     progress_percentage = min(distance / target * 100, 100)
     return f"""
     <div style="width: 100%; background: lightblue; position: relative; height: 50px; border-radius: 10px;">
@@ -74,12 +74,11 @@ if st.session_state['timer_started']:
     while time.time() - start_time < 60:
         elapsed_time = time.time() - st.session_state['start_time']
         st.session_state['time_left'] = max(60 - elapsed_time, 0)
-        current_time = datetime.now().strftime('%H:%M:%S')
         clock_placeholder.text(f"Time Left: {int(st.session_state['time_left'])} seconds")
         time.sleep(1)
     st.session_state['timer_started'] = False
-    st.write(f'Final Score: {st.session_state["total_points"]} Points')
-    st.write(f'Total Distance: {st.session_state["distance"]} meters')
+    st.write(f'Final Score: {round(st.session_state["total_points"], 2)} Points')
+    st.write(f'Total Distance: {round(st.session_state["distance"], 2)} meters')
     st.session_state['total_points'] = 0
     st.session_state['distance'] = 0  # Reset game
 
@@ -98,12 +97,12 @@ if st.session_state['timer_started'] and st.button('Submit Sentence'):
         st.session_state['total_points'] += points
         st.session_state['distance'] += points * 10  # Each point adds 10 meters to the boat's travel
 
-        st.write(f'Points for this sentence: {points}')
+        st.write(f'Points for this sentence: {round(points, 2)}')
         st.write(f'Predicted Difficulty by Model: {model_difficulty}')
         sentence_level.text(f'French Level: {model_difficulty}')
-        st.write(f'Total Points: {st.session_state["total_points"]}')
-        st.write(f'Distance: {st.session_state["distance"]} meters')
-        st.markdown(boat_progress(st.session_state['distance'], 200), unsafe_allow_html=True)
+        st.write(f'Total Points: {round(st.session_state["total_points"], 2)}')
+        st.write(f'Distance: {round(st.session_state["distance"], 2)} meters')
+        st.markdown(boat_progress(st.session_state['distance'], 2000), unsafe_allow_html=True)
     else:
         st.error('Please enter a sentence before submitting.')
 
