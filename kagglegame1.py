@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import time
 
 # Load the vectorizer and model from GitHub
-@st.cache(allow_output_mutation=True)
+@st.cache_resource
 def load_vectorizer_model():
     vectorizer_url = "https://github.com/tcastrom/CEFR-French/raw/main/Models/Basic%20Models/Streamlit/vectorizer.joblib"
     model_url = "https://github.com/tcastrom/CEFR-French/raw/main/Models/Basic%20Models/Streamlit/logistic_regression_model.joblib"
