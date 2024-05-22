@@ -161,7 +161,7 @@ elif page == "Game":
     timer_placeholder = st.empty()
     if st.session_state['time_left'] > 0:
         with timer_placeholder:
-            st.write(f'Time Left: {int(st.session_state["time_left"])} seconds')
+            st.write(f'Time Left: {int(st.session_state['time_left'])} seconds')
     else:
         timer_placeholder.write("Time is up! Submit your last sentence or restart the game.")
 
