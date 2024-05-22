@@ -63,10 +63,10 @@ def boat_progress(distance, target=2000):
         <img src="https://img.icons8.com/emoji/48/000000/chequered-flag.png" style="position: absolute; right: 0; transform: translateX(-50%); height: 48px; width: 48px;">
     </div>
     <style>
-        @keyframes sail {
-            0% { transform: translateX(50%) translateY(0); }
-            100% { transform: translateX(50%) translateY(-5px); }
-        }
+        @keyframes sail {{
+            0% {{ transform: translateX(50%) translateY(0); }}
+            100% {{ transform: translateX(50%) translateY(-5px); }}
+        }}
     </style>
     """
 
