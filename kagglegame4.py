@@ -5,6 +5,7 @@ from io import BytesIO
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.feature_extraction.text import TfidfVectorizer
 import time
+import base64
 
 # Ensure set_page_config is the first Streamlit command
 st.set_page_config(page_title='EPFL to Paris Journey', layout='wide')
@@ -71,14 +72,17 @@ def journey_progress(distance, target=500):
     """
 
 # CSS for Background
-page_bg_img = '''
+page_bg_img = """
 <style>
-body {
-background-image: url("https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view");
+[data-testid="stAppViewContainer"] {
+background: url(https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view) no-repeat center center fixed;
 background-size: cover;
 }
+[data-testid="stAppViewContainer"] > .main {
+background-color: rgba(224, 247, 224, 0.8); /* Light green background with opacity */
+}
 </style>
-'''
+"""
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
@@ -94,6 +98,7 @@ if page == "Welcome":
     Write as complex sentences as possible in French within 60 seconds to move your car closer to the Eiffel Tower. The total distance is 500 kilometers.
     Are you ready for the challenge? Let's start the game and see how far you can go!
     ''')
+    st.image("https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view", use_column_width=True)
 
 # Game Page
 elif page == "Game":
