@@ -98,7 +98,7 @@ if page == "Welcome":
     Write as complex sentences as possible in French within 60 seconds to move your car closer to the Eiffel Tower. The total distance is 500 kilometers.
     Are you ready for the challenge? Let's start the game and see how far you can go!
     ''')
-    st.image("https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view", use_column_width=True)
+    st.image("https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGF9e6tdVs&#x2F;pbXKXsMvuCtlsTmHfRVfzA&#x2F;view?utm_content=DAGF9e6tdVs&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link", use_column_width=True)
 
 # Game Page
 elif page == "Game":
