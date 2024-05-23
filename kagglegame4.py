@@ -71,17 +71,14 @@ def journey_progress(distance, target=500):
     """
 
 # CSS for Background
-page_bg_img = """
+page_bg_img = '''
 <style>
-[data-testid="stAppViewContainer"] {
-background: url('https://cdn.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view?format=webp') no-repeat center center fixed;
+body {
+background-image: url("https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view");
 background-size: cover;
 }
-[data-testid="stAppViewContainer"] > .main {
-background-color: rgba(255, 255, 255, 0.8); /* Light background with opacity for readability */
-}
 </style>
-"""
+'''
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
