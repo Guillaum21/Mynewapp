@@ -61,7 +61,7 @@ def journey_progress(distance, target=517):
         <div style="position: absolute; width: {progress_percentage}%; height: 100%; background: linear-gradient(to right, #0000FF, #FFFFFF, #FF0000); transition: width 0.5s;">
             <img src="https://img.icons8.com/doodle/48/000000/car--v1.png" style="position: absolute; right: 0; transform: translateX(50%); height: 48px; width: 48px; animation: drive 1s infinite alternate;">
         </div>
-        <img src="https://icons8.com/icon/122762/eiffel-tower.png" style="position: absolute; right: 0; transform: translateX(-50%); height: 48px; width: 48px;">
+        <img src="https://img.icons8.com/ios-filled/50/000000/eiffel-tower.png" style="position: absolute; right: 0; transform: translateX(-50%); height: 48px; width: 48px;">
     </div>
     <style>
         @keyframes drive {{
