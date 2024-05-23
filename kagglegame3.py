@@ -5,7 +5,6 @@ from io import BytesIO
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.feature_extraction.text import TfidfVectorizer
 import time
-import base64
 
 # Ensure set_page_config is the first Streamlit command
 st.set_page_config(page_title='EPFL to Paris Journey', layout='wide')
@@ -71,20 +70,11 @@ def journey_progress(distance, target=500):
     </style>
     """
 
-# Function to convert an uploaded image to base64
-def get_base64_image(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
-
-# Use the provided background image
-background_image_path = "/mnt/data/Design sans titre.jpg"
-background_image_base64 = get_base64_image(background_image_path)
-
 # CSS for Background
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] {{
-background: url(data:image/png;base64,{background_image_base64}) no-repeat center center fixed;
+background: url('https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view') no-repeat center center fixed;
 background-size: cover;
 background-color: #E0F7E0; /* Light green background */
 }}
