@@ -98,7 +98,18 @@ if page == "Welcome":
     Write as complex sentences as possible in French within 60 seconds to move your car closer to the Eiffel Tower. The total distance is 500 kilometers.
     Are you ready for the challenge? Let's start the game and see how far you can go!
     ''')
-    st.image("https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGF9e6tdVs&#x2F;pbXKXsMvuCtlsTmHfRVfzA&#x2F;view?utm_content=DAGF9e6tdVs&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link", use_column_width=True)
+
+    # Embed the image
+    st.markdown("""
+    <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%;
+    padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+    border-radius: 8px; will-change: transform;">
+        <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+        src="https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+        </iframe>
+    </div>
+    <a href="https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view?utm_content=DAGF9e6tdVs&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener">Design</a> par Guillaume Chapalain
+    """, unsafe_allow_html=True)
 
 # Game Page
 elif page == "Game":
