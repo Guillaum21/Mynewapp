@@ -71,13 +71,13 @@ def journey_progress(distance, target=500):
     </style>
     """
 
-# Set fixed background image
-background_image_path = "/mnt/data/Design_sans_titre.jpg"
-
+# Function to convert an uploaded image to base64
 def get_base64_image(image_path):
     with open(image_path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
 
+# Use the provided background image
+background_image_path = "/mnt/data/Design sans titre.jpg"
 background_image_base64 = get_base64_image(background_image_path)
 
 # CSS for Background
