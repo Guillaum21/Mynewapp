@@ -45,16 +45,16 @@ def determine_french_level(sentence):
     level_points = {
         'A1': 5,
         'A2': 10,
-        'B1': 15,
-        'B2': 20,
-        'C1': 25,
-        'C2': 30
+        'B1': 20,
+        'B2': 30,
+        'C1': 40,
+        'C2': 50
     }
     
     points = level_points.get(level, 0)
     return points, level
 
-def journey_progress(distance, target=500):
+def journey_progress(distance, target=517):
     progress_percentage = min(distance / target * 100, 100)
     return f"""
     <div style="width: 100%; background: lightgray; position: relative; height: 60px; border-radius: 10px; overflow: hidden;">
@@ -75,11 +75,8 @@ def journey_progress(distance, target=500):
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] {
-background: url(https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view) no-repeat center center fixed;
+background: url(https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view?embed) no-repeat center center fixed;
 background-size: cover;
-}
-[data-testid="stAppViewContainer"] > .main {
-background-color: rgba(224, 247, 224, 0.8); /* Light green background with opacity */
 }
 </style>
 """
@@ -95,21 +92,21 @@ if page == "Welcome":
     st.title('Welcome to EPFL to Paris Journey')
     st.write('''
     Welcome to the EPFL to Paris journey! As an international student at EPFL, your goal is to improve your French skills to make it to the Eiffel Tower in Paris. 
-    Write as complex sentences as possible in French within 60 seconds to move your car closer to the Eiffel Tower. The total distance is 500 kilometers.
+    Write as complex sentences as possible in French within 90 seconds to move your car closer to the Eiffel Tower. The total distance is 517 kilometers.
     Are you ready for the challenge? Let's start the game and see how far you can go!
     ''')
-
-    # Embed the image
-    st.markdown("""
+    
+    # Embed the image using HTML iframe
+    st.markdown('''
     <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%;
     padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
     border-radius: 8px; will-change: transform;">
-        <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+      <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
         src="https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-        </iframe>
+      </iframe>
     </div>
-    <a href="https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view?utm_content=DAGF9e6tdVs&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener">Design</a> par Guillaume Chapalain
-    """, unsafe_allow_html=True)
+    <a href="https://www.canva.com/design/DAGF9e6tdVs/pbXKXsMvuCtlsTmHfRVfzA/view?utm_content=DAGF9e6tdVs&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener">
+    ''', unsafe_allow_html=True)
 
 # Game Page
 elif page == "Game":
@@ -117,14 +114,14 @@ elif page == "Game":
 
     st.write('''
     Welcome to the EPFL to Paris journey! As an international student at EPFL, your goal is to improve your French skills to make it to the Eiffel Tower in Paris. 
-    Write as complex sentences as possible in French within 60 seconds to move your car closer to the Eiffel Tower. The total distance is 500 kilometers.
+    Write as complex sentences as possible in French within 90 seconds to move your car closer to the Eiffel Tower. The total distance is 517 kilometers.
     ''')
 
     if 'timer_started' not in st.session_state:
         st.session_state['timer_started'] = False
         st.session_state['total_points'] = 0
         st.session_state['distance'] = 0
-        st.session_state['time_left'] = 60
+        st.session_state['time_left'] = 90
         st.session_state['sentences'] = []
         st.session_state['first_submission'] = False
 
@@ -134,7 +131,7 @@ elif page == "Game":
 
     if st.session_state['timer_started']:
         elapsed_time = time.time() - st.session_state['start_time']
-        st.session_state['time_left'] = max(60 - elapsed_time, 0)
+        st.session_state['time_left'] = max(90 - elapsed_time, 0)
         if st.session_state['time_left'] <= 0:
             st.session_state['timer_started'] = False
             st.write(f'Final Score: {st.session_state["total_points"]} Points')
@@ -157,7 +154,7 @@ elif page == "Game":
             st.write(f'French Level: {level}')
             st.write(f'Points for this sentence: {points}')
             st.write(f'Total Distance: {st.session_state["distance"]} kilometers')
-            st.markdown(journey_progress(st.session_state['distance'], 500), unsafe_allow_html=True)
+            st.markdown(journey_progress(st.session_state['distance'], 517), unsafe_allow_html=True)
         else:
             st.error('Please enter a sentence before submitting.')
 
@@ -209,7 +206,7 @@ elif page == "Review and Learn":
 # Continuously update the timer
 while st.session_state.get('timer_started', False):
     elapsed_time = time.time() - st.session_state['start_time']
-    st.session_state['time_left'] = max(60 - elapsed_time, 0)
+    st.session_state['time_left'] = max(90 - elapsed_time, 0)
     if st.session_state['time_left'] <= 0:
         st.session_state['timer_started'] = False
         st.write("Time is up! Submit your last sentence or restart the game.")
