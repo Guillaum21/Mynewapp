@@ -3,9 +3,9 @@ import streamlit as st
 
 # Define themes and words
 themes = {
-    'Animals': ['elephant', 'giraffe', 'tiger', 'zebra', 'lion', 'cheetah', 'monkey', 'kangaroo', 'panda', 'koala'],
-    'Fruits': ['apple', 'banana', 'orange', 'grape', 'watermelon', 'pineapple', 'strawberry', 'blueberry', 'mango', 'papaya'],
-    'Countries': ['canada', 'brazil', 'france', 'germany', 'india', 'japan', 'nigeria', 'russia', 'spain', 'turkey']
+    'Animals': ['alligator', 'bison', 'chimpanzee', 'dolphin', 'elephant', 'flamingo', 'gorilla', 'hippopotamus', 'iguana', 'jaguar'],
+    'Fruits': ['apricot', 'blackberry', 'coconut', 'durian', 'elderberry', 'fig', 'grapefruit', 'honeydew', 'kiwi', 'lemon'],
+    'Countries': ['argentina', 'belgium', 'chile', 'denmark', 'ethiopia', 'finland', 'greece', 'hungary', 'iceland', 'jamaica']
 }
 
 def choose_word(theme):
