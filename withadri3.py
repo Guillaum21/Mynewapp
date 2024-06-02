@@ -1,12 +1,81 @@
 import random
+from random_words import RandomWords
 import streamlit as st
 
 def choose_word():
-    words = ['python', 'streamlit', 'hangman', 'challenge', 'repository']
-    return random.choice(words)
+    rw = RandomWords()
+    return rw.random_word()
 
 def display_word(word, guessed_letters):
     return ' '.join([letter if letter in guessed_letters else '_' for letter in word])
+
+def draw_hangman(wrong_attempts):
+    stages = [
+        """
+           ------
+           |    |
+                |
+                |
+                |
+                |
+        --------
+        """,
+        """
+           ------
+           |    |
+           O    |
+                |
+                |
+                |
+        --------
+        """,
+        """
+           ------
+           |    |
+           O    |
+           |    |
+                |
+                |
+        --------
+        """,
+        """
+           ------
+           |    |
+           O    |
+          /|    |
+                |
+                |
+        --------
+        """,
+        """
+           ------
+           |    |
+           O    |
+          /|\\   |
+                |
+                |
+        --------
+        """,
+        """
+           ------
+           |    |
+           O    |
+          /|\\   |
+          /     |
+                |
+        --------
+        """,
+        """
+           ------
+           |    |
+           O    |
+          /|\\   |
+          / \\   |
+                |
+        --------
+        """
+    ]
+    return stages[wrong_attempts]
 
 def hangman_game():
     st.title("Hangman Game")
@@ -20,6 +89,7 @@ def hangman_game():
 
     st.write("Guess the word:")
     st.write(display_word(st.session_state.word, st.session_state.guessed_letters))
+    st.text(draw_hangman(st.session_state.wrong_attempts))
     
     if st.session_state.wrong_attempts >= st.session_state.max_attempts:
         st.write(f"You lost! The word was {st.session_state.word}.")
