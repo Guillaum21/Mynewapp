@@ -1,36 +1,55 @@
 import random
 import streamlit as st
 
-def get_computer_choice():
-    return random.choice(['Rock', 'Paper', 'Scissors'])
+def choose_word():
+    words = ['python', 'streamlit', 'hangman', 'challenge', 'repository']
+    return random.choice(words)
 
-def determine_winner(player_choice, computer_choice):
-    if player_choice == computer_choice:
-        return "It's a tie!"
-    elif (player_choice == 'Rock' and computer_choice == 'Scissors') or \
-         (player_choice == 'Paper' and computer_choice == 'Rock') or \
-         (player_choice == 'Scissors' and computer_choice == 'Paper'):
-        return "You win!"
-    else:
-        return "You lose!"
+def display_word(word, guessed_letters):
+    return ' '.join([letter if letter in guessed_letters else '_' for letter in word])
 
-def play_game():
-    st.title("Rock, Paper, Scissors Game")
+def hangman_game():
+    st.title("Hangman Game")
     
-    if 'computer_choice' not in st.session_state:
-        st.session_state.computer_choice = ''
-        st.session_state.result = ''
+    if 'word' not in st.session_state:
+        st.session_state.word = choose_word()
+        st.session_state.guessed_letters = []
+        st.session_state.wrong_attempts = 0
+        st.session_state.max_attempts = 6
+        st.session_state.game_over = False
+
+    st.write("Guess the word:")
+    st.write(display_word(st.session_state.word, st.session_state.guessed_letters))
     
-    st.write("Choose Rock, Paper, or Scissors:")
-    player_choice = st.selectbox("Your choice:", ['Rock', 'Paper', 'Scissors'])
+    if st.session_state.wrong_attempts >= st.session_state.max_attempts:
+        st.write(f"You lost! The word was {st.session_state.word}.")
+        st.session_state.game_over = True
     
-    if st.button("Play"):
-        st.session_state.computer_choice = get_computer_choice()
-        st.session_state.result = determine_winner(player_choice, st.session_state.computer_choice)
+    if not st.session_state.game_over:
+        letter = st.text_input("Enter a letter:").lower()
+        
+        if st.button("Guess"):
+            if letter in st.session_state.guessed_letters:
+                st.write("You already guessed that letter.")
+            elif letter in st.session_state.word:
+                st.session_state.guessed_letters.append(letter)
+                st.write("Good guess!")
+            else:
+                st.session_state.guessed_letters.append(letter)
+                st.session_state.wrong_attempts += 1
+                st.write("Wrong guess!")
+
+            if all([letter in st.session_state.guessed_letters for letter in st.session_state.word]):
+                st.write(f"Congratulations! You guessed the word: {st.session_state.word}")
+                st.session_state.game_over = True
     
-    if st.session_state.computer_choice:
-        st.write(f"Computer chose: {st.session_state.computer_choice}")
-        st.write(st.session_state.result)
+    st.write(f"Wrong attempts: {st.session_state.wrong_attempts}/{st.session_state.max_attempts}")
+
+    if st.button("Reset Game"):
+        st.session_state.word = choose_word()
+        st.session_state.guessed_letters = []
+        st.session_state.wrong_attempts = 0
+        st.session_state.game_over = False
 
 if __name__ == "__main__":
-    play_game()
+    hangman_game()
