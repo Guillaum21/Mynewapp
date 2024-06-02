@@ -1,4 +1,3 @@
-pip install streamlit
 import random
 import streamlit as st
 
@@ -34,4 +33,3 @@ def guess_the_number():
 
 if __name__ == "__main__":
     guess_the_number()
-streamlit run guess_the_number_streamlit.py
