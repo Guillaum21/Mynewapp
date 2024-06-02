@@ -17,7 +17,7 @@ def guess_the_number():
             elif guess > number_to_guess:
                 print("Too high! Try again.")
             else:
-                print(f"Congratulations! You've guessed the number in {attempts} attempts.")
+                print(f"Congratulations! You've guessed the number {number_to_guess} in {attempts} attempts.")
                 break
         except ValueError:
             print("Please enter a valid number.")
